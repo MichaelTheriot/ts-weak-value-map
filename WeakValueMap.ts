@@ -1,4 +1,6 @@
-class WeakValueMap<TKey, TValue extends object> implements Map<TKey, TValue> {
+type WeakValueMapValue = ConstructorParameters<typeof WeakRef>[0];
+
+class WeakValueMap<TKey, TValue extends WeakValueMapValue> implements Map<TKey, TValue> {
     #map: Map<TKey, WeakRef<TValue>>;
     #registry: FinalizationRegistry<TKey>;
 
@@ -86,7 +88,7 @@ class WeakValueMap<TKey, TValue extends object> implements Map<TKey, TValue> {
     }
 }
 
-interface WeakValueMap<TKey, TValue extends object> {
+interface WeakValueMap<TKey, TValue extends WeakValueMapValue> {
     [Symbol.iterator]: typeof WeakValueMap.prototype.entries;
 }
 
